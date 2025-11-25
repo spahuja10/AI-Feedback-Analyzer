@@ -8,6 +8,18 @@ from sentence_transformers import SentenceTransformer, util
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Download the specific missing package
+try:
+    nltk.data.find('tokenizers/punkt_tab')
+except LookupError:
+    nltk.download('punkt_tab')
+
+# It is also good practice to ensure the standard 'punkt' is there too
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+
 # -------------------------------
 # 1. Setup & NLTK Data Handling (CRITICAL FIX)
 # -------------------------------
@@ -294,3 +306,4 @@ if before_file is not None:
 
         except Exception as e:
             st.error(f"Analysis Failed: {e}")
+
