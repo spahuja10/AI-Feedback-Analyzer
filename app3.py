@@ -16,13 +16,14 @@ st.set_page_config(page_title="Leadership Feedback Analyzer", layout="wide")
 # @st.cache_resource ensures this function runs only once on deployment
 @st.cache_resource
 def download_nltk_data():
-    # Attempt to download the required NLTK resource ('punkt')
+    import nltk
+    # Attempt to download the required NLTK resource ('punkt').
+    # This handles the tokenization logic robustly on the cloud.
     try:
         nltk.download('punkt', quiet=True)
     except Exception as e:
-        # Fallback for systems that require the exact 'punkt_tab' file location
+        # Fallback for complex environments where 'punkt' fails to map correctly
         st.warning(f"NLTK download failed for 'punkt': {e}. Trying specific download paths.")
-        # This download often resolves the Resource punkt_tab error specifically
         try:
             nltk.download('punkt_tab', quiet=True)
         except Exception as e_specific:
@@ -64,7 +65,7 @@ st.sidebar.info("Modify these lists to auto-update the scoring logic.")
 def get_list_from_string(text_input):
     return [x.strip().lower() for x in text_input.split(",") if x.strip()]
 
-# -- Sidebar Inputs (Using the Client-Aligned Defaults) --
+# -- Sidebar Inputs --
 default_open_starters = "what, how, in what way, to what extent, describe, imagine, what else"
 user_open_starters = st.sidebar.text_area("Open Question Starters", default_open_starters, height=70)
 
@@ -77,7 +78,7 @@ user_action_kws = st.sidebar.text_area("Action/Goal Keywords (Ownership)", defau
 default_affirmations = "go on, say more, i hear you, sounds like, clarify, pause"
 user_affirmations = st.sidebar.text_area("Active Listening Phrases", default_affirmations, height=70)
 
-default_emotions = "feel, frustrated, excited, overwhelmed, confident, worried, happy, angry, nervous"
+default_emotions = "feel, frustrated, excited, sad, comfortable, worried, happy, angry, nervous"
 user_emotions = st.sidebar.text_area("Emotion/Empathy Keywords", default_emotions, height=70)
 
 # -------------------------------
