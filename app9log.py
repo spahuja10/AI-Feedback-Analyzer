@@ -298,16 +298,16 @@ if before_file:
             st.subheader("📊 Leadership Communication Score Comparison")
 
             tips_map = {
-                "Question Quality": "Tip: Prioritize 'What' and 'How' questions.",
-                "Question Stacking": "Tip: Ask one question at a time.",
-                "Feedback Quality": "Tip: Use specific examples.",
-                "Active Listening": "Tip: Paraphrase and validate feelings.",
-                "Language Richness": "Tip: Vary vocabulary.",
-                "Emotion Addressing": "Tip: Name and acknowledge emotions.",
-                "Coaching Presence": "Tip: Use discovery questions.",
-                "Action Orientation": "Tip: End with commitments.",
-                "Positive Feedback": "Tip: Include specific praise."
-            }
+                    "Question Quality": "Tip: Prioritize 'What' and 'How' questions over closed-ended ones.",
+                    "Question Stacking": "Tip: Ask one question at a time and pause for the answer.",
+                    "Feedback Quality": "Tip: Use specific examples rather than general praise or criticism.",
+                    "Active Listening": "Tip: Use validation phrases like 'I hear you' and paraphrase key points.",
+                    "Language Richness": "Tip: Vary your vocabulary to keep engagement high.",
+                    "Emotion Addressing": "Tip: Explicitly acknowledge feelings (e.g., 'It sounds frustrating').",
+                    "Coaching Presence": "Tip: Use discovery questions to help them find answers. Avoid advice.",
+                    "Action Orientation": "Tip: End with clear commitment questions: 'What will you do by when?'",
+                    "Positive Feedback": "Tip: Ensure constructive feedback is balanced with encouragement."
+                }
 
             metric_names = [
                 f"{k}\n({tips_map[k]})" for k in before_scores.keys()
@@ -356,4 +356,5 @@ if before_file:
 
         except Exception as e:
             st.error(f"Analysis Failed: {e}")
+
 
