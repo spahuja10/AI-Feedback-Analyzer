@@ -15,27 +15,16 @@ import numpy as np
 st.set_page_config(page_title="Leadership Feedback Analyzer", layout="wide")
 
 # --- NLTK DATA HANDLING (Robust Cloud Fix) ---
-# Downloads the 'punkt' tokenizer for sentence splitting, cached to run only once.
 @st.cache_resource
 def download_nltk_data():
     import nltk
     try:
-        # Attempts standard download of the tokenizer.
-        nltk.download('punkt', quiet=True)
+        nltk.download("punkt", quiet=True)
+        nltk.download("punkt_tab", quiet=True)   # REQUIRED for new NLTK versions
+        return True
     except Exception as e:
-        # Falls back to downloading 'punkt_tab' if the standard download fails.
-        st.warning(f"Standard NLTK download failed: {e}. Attempting fallback...")
-        try:
-            nltk.download('punkt_tab', quiet=True)
-        except Exception as e_specific:
-            # Stops execution if NLTK data cannot be downloaded.
-            st.error(f"Critical Error: Failed to download NLTK data. {e_specific}")
-            return False
-    return True
-
-# Executes the download function and stops if it fails.
-if not download_nltk_data():
-    st.stop()
+        st.error(f"Failed to download required NLTK data: {e}")
+        return False
 
 # --- UI HEADER ---
 # Displays the main title and subtitle of the application.
@@ -439,3 +428,4 @@ if before_file is not None:
 
         except Exception as e:
             st.error(f"Analysis Failed: {e}")
+
