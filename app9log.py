@@ -290,7 +290,9 @@ if before_file:
                 "After (min)": [speaking_after["Coach (min)"], speaking_after["Coachee (min)"]],
             })
 
-            st.dataframe(speak_df.style.format("{:.1f}"), use_container_width=True)
+            numeric_cols = ["Before (%)", "Before (min)", "After (%)", "After (min)"]
+            st.dataframe(speak_df.style.format({col: "{:.1f}" for col in numeric_cols}),use_container_width=True)
+
 
             # Metric Table
             st.subheader("📊 Leadership Communication Score Comparison")
@@ -354,3 +356,4 @@ if before_file:
 
         except Exception as e:
             st.error(f"Analysis Failed: {e}")
+
